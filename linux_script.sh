@@ -5,9 +5,6 @@ echo "CREATE_FILE 2>&1"
 echo "========01.Default:ID_Check_Start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
-# 리눅스 내부에 /etc/passwd 파일이 존재하는 여부를 검사 
-# /etc/passwd/파일이 존재할경우 Grep 확장을 이용하여 ip , uccp ,nuucp가 있는 지 확인 및 존재 여부 확인하여 출력
-
 if [ ! -f "/etc/passwd" ]; 
 then
     echo "/etc/passwd File not found" >> $CREATE_FILE 2>&1
