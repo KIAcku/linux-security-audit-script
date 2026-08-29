@@ -2,6 +2,7 @@
 
 CREATE_FILE="Automatic_脆弱性チェック_script".txt
 echo "CREATE_FILE 2>&1"
+
 echo "========01.Default:ID_Check_Start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
