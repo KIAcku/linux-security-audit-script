@@ -29,4 +29,6 @@ KISA(한국인터넷진흥원) 주요정보통신기반시설 취약점 가이�
 
 실행방법
 chmod +x filename.sh 
+
+
 ./filename.sh
