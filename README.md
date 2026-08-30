@@ -25,4 +25,8 @@ KISA(한국인터넷진흥원) 주요정보통신기반시설 취약점 가이�
 20. root 원격 접속 제한 : 콘솔 외 직접 root 로그인 제한 설정 점검(/etc/pam.d/login)
 21. 시스템 부팅/ 설정 파일 권한 관리 : /etc/rc*.d, /etc/inittab등 주요 설정 파일 권한 점검
 22. 취약한 RPC 서비스 비활성화: Buffer Overflow threats가 있는 RPC 관련 서비스 구동 여부 점검(/etc/xinetd.d)
-23. 
+
+
+실행방법
+chmod +x filename.sh 
+./filename.sh
