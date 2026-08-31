@@ -3,7 +3,7 @@
 CREATE_FILE="Automatic_脆弱性チェック_script".txt
 echo "CREATE_FILE 2>&1"
 
-echo "========01.Default:ID_Check_Start========" >> $CREATE_FILE 2>&1
+echo "========01.Default ID_Check_Start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
 if [ ! -f "/etc/passwd" ]; 
@@ -22,8 +22,6 @@ echo " " >> $CREATE_FILE 2>&1
 
 echo "========02.Root_Management_Start=======" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
-
-# etc/passwd 파일을 열어서 awK -F 문법을 활용해서 etc/passwd의 
 
 if [ ! -f /etc/passwd ]; 
 then
@@ -109,7 +107,7 @@ echo " " >> $CREATE_FILE 2>&1
 
 if [ -f "/etc/login.defs" ];
 then
-	if [ `grep "PASS_MIN_LEN" /etc/login.defs | awk '{print $2}' | wc -l` -ge 1 ];
+	if [ `grep "PASS_MIN_LEN" /etc/login.defs | awk '{print $2}' | wc -l` -ge 90 ];
 	then
        	 	 echo "PASS_MIN_LEN:[Good]" >> $CREATE_FILE 2>&1	
 	else
@@ -145,8 +143,7 @@ else
     echo "/etc/passwd Not Found" >> $CREATE_FILE 2>&1
 fi
 
-
-echo "--------------[result]----------------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 
 if [ `cat /etc/passwd | grep -E "daemon|bin|sys|adm|listen|nobody|nobody4|noaccess|diag|operator|games|gopher" | grep -v "admin" | grep -v "false|nologin" | wc -l` -eq 0 ]
 then
@@ -168,7 +165,7 @@ else
     echo "/etc/pam.d/su file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "--------[result]------------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 if [ `cat /etc/pam.d/su | grep -v 'trust' | grep 'pam_wheel.so' | grep 'use_uid' | grep -v '#' | wc -l` -eq 0　];　
 then
     echo "su check result : Good" >> $CREATE_FILE 2>&1
@@ -189,7 +186,7 @@ else
 fi
 echo " " >> $CREATE_FILE 2>&1
 
-echo "--------[RESULT]----------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 
 if [ `ls -alL /etc/shadow | awk '{print $1}' | grep   "----------" | wc -l` -eq 1 ]; 
 then
@@ -201,7 +198,7 @@ echo " " >> $CREATE_FILE 2>&1
 
 
 
-echo "========09.Umask_Check_Start========" >> $CREATE_FILE 2>&1
+echo "========09.UMASK_Check_Start========" >> $CREATE_FILE 2>&1
 echo >> $CREATE_FILE 2>&1
 
 echo "/etc/login.defs File check " >> $CREATE_FILE 2>&1
@@ -212,7 +209,7 @@ else
     echo "/etc/login.defs file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "--------[Result]---------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 
 if [ `cat /etc/login.defs | grep -i "umask" | grep -v "#" | awk -F "0" '$2 >="22"' | wc -l` -gt 0 ];
 then
@@ -244,7 +241,7 @@ do
         fi
 done
 
-echo "--------[Result]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 
 if [ `cat set.txt | awk '{print $1}' | grep -i 's' | wc -l` -gt 0 ];
 then
@@ -258,7 +255,7 @@ rm -rf ./set.txt
 
 
 echo "========11.Xinetd.conf_check_start========" >> $CREATE_FILE 2>&1
-echo "--------[RESULT]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
 if [ -f /etc/xinetd.conf ];
@@ -274,6 +271,7 @@ else
     echo "xinetd.conf file not found" >> $CREATE_FILE 2>&1
 fi
 echo " " >> $CREATE_FILE 2>&1
+
 
 echo "=====12.History_file_check_start=====" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
@@ -300,7 +298,7 @@ do
     done
 done
 
-echo "--------[Result]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 if [ `cat history.txt | grep "Bad" | wc -l` -eq 0 ];
 then
     echo "history check result : Good " >> $CREATE_FILE
@@ -324,7 +322,7 @@ else
     echo "/etc/profile not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "--------[Result]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/profile | awk '{print $1}' | grep '...-.--.--' | wc -l` -eq 1 ]; 
 then
     echo "profile permission check result : Good" >> $CREATE_FILE 2>&1
@@ -346,7 +344,7 @@ else
         echo "/etc/hosts file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "--------[Result]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/hosts | awk '{print $1}' | grep '-rw-r--r--' | wc -l` -eq 0 ];
 then
         echo "permssion  check result : Good" >>$CREATE_FILE 2>&1
@@ -366,7 +364,7 @@ else
         echo "/etc/issue file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "--------[result]--------" >> $CREATE_FILE 2>&1
+echo "=========[Result]==========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/issue | awk '{print $1}' | grep '.....--.--' | wc -l` -eq 1 ]; 
 then
         echo "issue permission check result : Good" >> $CREATE_FILE 2>&1
@@ -378,7 +376,7 @@ echo " " >> $CREATE_FILE 2>&1
 
 
 
-echo "--------[Home_directory_start]--------" >> $CREATE_FILE 2>&1
+echo "========[Home_directory_start]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 HOMEDIRS=`cat /etc/passwd | awk -F":" 'length($6) > 0 {print $6}' | sort -u | grep -v "#" | grep -v "/tmp" | grep -v "uucppublic" | uniq`
 echo " " >> $CREATE_FILE 2>&1
