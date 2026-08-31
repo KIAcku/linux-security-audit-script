@@ -12,7 +12,7 @@ then
 else
 	if [ `cat /etc/passwd | grep -E "lp|uucp|nuucp:" | wc -l` -eq 0 ];
 	then
-        echo "Ip,uucp,nuucp not found" >> $CREATE_FILE 2>&1
+        echo "Ip, uucp, nuucp not found" >> $CREATE_FILE 2>&1
     else
     	cat /etc/passwd | grep -E "lp|luucp|nuucp:" >> $CREATE_FILE 2>&1
     fi
@@ -29,11 +29,11 @@ then
 else 
   	if [ `awk -F: '$3==0' /etc/passwd | wc -l` -eq 1 ]; 
 	then
-        	echo "========Good========" >> $CREATE_FILE 2>&1
+        	echo "==Good==" >> $CREATE_FILE 2>&1
 	else
 		awk -F: '$3==0 {print $1 " --> UID="$3 }' /etc/passwd >> $CREATE_FILE 2>&1
 			
-			echo "========Bad========" >> $CREATE_FILE 2>&1
+			echo "==Bad==" >> $CREATE_FILE 2>&1
 	fi
 fi
 echo " " >> $CREATE_FILE 2>&1
