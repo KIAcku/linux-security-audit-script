@@ -376,7 +376,7 @@ echo " " >> $CREATE_FILE 2>&1
 
 
 
-echo "========[Home_directory_start]========" >> $CREATE_FILE 2>&1
+echo "========[16.Home_directory_start]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 HOMEDIRS=`cat /etc/passwd | awk -F":" 'length($6) > 0 {print $6}' | sort -u | grep -v "#" | grep -v "/tmp" | grep -v "uucppublic" | uniq`
 echo " " >> $CREATE_FILE 2>&1
