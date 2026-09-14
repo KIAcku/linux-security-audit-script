@@ -1,7 +1,8 @@
 #!/bin/bash
 
 CREATE_FILE="Automatic_脆弱性チェック_script".txt
-echo "CREATE_FILE 2>&1"
+echo "$CREATE_FILE 2>&1"
+rm -f history.txt etcfiles.txt home.txt dir.txt rpc.txt homeconf.txt
 
 echo "========01.Default ID_Check_Start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
@@ -426,7 +427,6 @@ do
             else
                 echo "Home configuration check result : Bad" >> homeconf.txt
 			fi
-		else
 		fi
     done
 done
