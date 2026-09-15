@@ -15,7 +15,7 @@ else
 	then
         echo "lp, uucp, nuucp not found" >> $CREATE_FILE 2>&1
     else
-    	cat /etc/passwd | grep -E "lp|luucp|nuucp:" >> $CREATE_FILE 2>&1
+    	cat /etc/passwd | grep -E "lp|uucp|nuucp:" >> $CREATE_FILE 2>&1
     fi
 fi
 echo " " >> $CREATE_FILE 2>&1
@@ -279,6 +279,7 @@ echo " " >> $CREATE_FILE 2>&1
 HOMEDIRS=`cat /etc/passwd | awk -F":" 'length($6) > 0 {print $6}' | sort -u | grep -v '/bin/false' | grep -v 'nologin' | grep -v "#"`
 FILES=".sh_history .bash_history .history"
 
+
 for dir in $HOMEDIRS
 do
     for file in $FILES
@@ -300,7 +301,7 @@ do
 done
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
-if [ `cat history.txt | grep "Bad" | wc -l` -eq 0 ];
+if [ ! -f history.txt ] || [ `cat history.txt | grep "Bad" | wc -l` -eq 0 ];
 then
     echo "history check result : Good " >> $CREATE_FILE
 else
@@ -434,7 +435,7 @@ done
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
-if [ `cat homeconf.txt | grep "Bad" | wc -l` -eq 0 ]; 
+if [ -f homeconf.txt] || [ `cat homeconf.txt | grep "Bad" | wc -l` -eq 0 ]; 
 then
 		echo "home configuration check result :Good" >> $CREATE_FILE 2>&1
 else
