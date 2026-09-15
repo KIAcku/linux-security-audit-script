@@ -325,7 +325,7 @@ else
 fi
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
-if [ `ls -alL /etc/profile | awk '{print $1}' | grep '...-.--.--' | wc -l` -eq 1 ]; 
+if [ -f /etc/profile ] && [ `ls -alL /etc/profile | awk '{print $1}' | grep '...-.--.--' | wc -l` -eq 1 ]; 
 then
     echo "profile permission check result : Good" >> $CREATE_FILE 2>&1
 else
@@ -347,7 +347,7 @@ else
 fi
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
-if [ `ls -alL /etc/hosts | awk '{print $1}' | grep '-rw-r--r--' | wc -l` -eq 0 ];
+if [ -f /etc/hosts ] && [ `ls -alL /etc/hosts | awk '{print $1}' | grep '-rw-r--r--' | wc -l` -eq 0 ];
 then
         echo "permssion  check result : Good" >>$CREATE_FILE 2>&1
 else
@@ -367,7 +367,7 @@ else
 fi
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
-if [ `ls -alL /etc/issue | awk '{print $1}' | grep '.....--.--' | wc -l` -eq 1 ]; 
+if [ -f /etc/issue ] && [ `ls -alL /etc/issue | awk '{print $1}' | grep '.....--.--' | wc -l` -eq 1 ]; 
 then
         echo "issue permission check result : Good" >> $CREATE_FILE 2>&1
 else
@@ -441,8 +441,10 @@ then
 else
         echo "home configuration check result :Bad" >> $CREATE_FILE 2>&1
 fi
-
+if [ -f ./homeconf.txt ]; 
+then
 cat ./homeconf.txt
+fi
 rm -rf homeconf.txt
 
 echo " " >> $CREATE_FILE 2>&1
