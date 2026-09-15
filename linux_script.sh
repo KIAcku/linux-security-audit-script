@@ -2,7 +2,7 @@
 
 CREATE_FILE="Automatic_脆弱性チェック_script".txt
 echo "$CREATE_FILE 2>&1"
-rm -f history.txt etcfiles.txt home.txt dir.txt rpc.txt homeconf.txt
+rm -f history.txt etcfiles.txt home.txt dir.txt rpc.txt homeconf.txt temp.txt set.txt
 
 echo "========01.Default ID_Check_Start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
@@ -13,7 +13,7 @@ then
 else
 	if [ `cat /etc/passwd | grep -E "lp|uucp|nuucp:" | wc -l` -eq 0 ];
 	then
-        echo "Ip, uucp, nuucp not found" >> $CREATE_FILE 2>&1
+        echo "lp, uucp, nuucp not found" >> $CREATE_FILE 2>&1
     else
     	cat /etc/passwd | grep -E "lp|luucp|nuucp:" >> $CREATE_FILE 2>&1
     fi
@@ -66,7 +66,7 @@ echo " " >> $CREATE_FILE 2>&1
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ -f "/etc/group" ]; 
 then
-    if [ `ls -alL /etc/group | awk '{print $1}' | grep "rw-r--r--" | wc -l` -eq 0 ];
+    if [ `ls -alL /etc/group | awk '{print $1}' | grep "rw-r--r--" | wc -l` -eq 1 ];
 	then
         echo "group check Result : Good" >> $CREATE_FILE 2>&1
 	else
@@ -189,7 +189,7 @@ echo " " >> $CREATE_FILE 2>&1
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 
-if [ `ls -alL /etc/shadow | awk '{print $1}' | grep   "----------" | wc -l` -eq 1 ]; 
+if [ -f /etc/shadow ] && [ `ls -alL /etc/shadow | awk '{print $1}' | grep   "----------" | wc -l` -eq 1 ]; 
 then
     echo "shadow check result : Good" >> $CREATE_FILE 2>&1
 else
@@ -262,7 +262,7 @@ echo " " >> $CREATE_FILE 2>&1
 if [ -f /etc/xinetd.conf ];
 then
 	ls -alL /etc/xinetd.conf >> $CREATE_FILE 2>&1
-    	if [ `ls -alL /etc/xinetd.conf | awk '{print $1}' | grep '........-.' | wc -l` -eq 1 ]
+    	if [ `ls -alL /etc/xinetd.conf | awk '{print $1}' | grep '........-.' | wc -l` -eq 1 ];
     	then
         	echo "xinetd.conf_check_result : Good" >> $CREATE_FILE 2>&1
     	else
@@ -620,7 +620,10 @@ then
         fi
 fi
 
-cat ./rpc.txt >> $CREATE_FILE
+if [ -f ./rpc.txt ];
+then
+	cat ./rpc.txt >> $CREATE_FILE
+fi
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
