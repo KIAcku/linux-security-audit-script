@@ -167,7 +167,7 @@ else
 fi
 
 echo "========[Result]========" >> $CREATE_FILE 2>&1
-if [ `cat /etc/pam.d/su | grep -v 'trust' | grep 'pam_wheel.so' | grep 'use_uid' | grep -v '#' | wc -l` -eq 0　];　
+if [ -f /etc/pam.d/su ] && [ `cat /etc/pam.d/su | grep -v 'trust' | grep 'pam_wheel.so' | grep 'use_uid' | grep -v '#' | wc -l` -eq 0　];　
 then
     echo "su check result : Good" >> $CREATE_FILE 2>&1
 else
@@ -435,7 +435,7 @@ done
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
-if [ -f homeconf.txt] || [ `cat homeconf.txt | grep "Bad" | wc -l` -eq 0 ]; 
+if [ ! -f homeconf.txt ] || [ `cat homeconf.txt | grep "Bad" | wc -l` -eq 0 ]; 
 then
 		echo "home configuration check result :Good" >> $CREATE_FILE 2>&1
 else
