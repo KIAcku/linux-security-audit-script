@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CREATE_FILE="Automatic_脆弱性チェック_script".txt
+CREATE_FILE="Automatic_脆弱性チェック_script.txt"
 echo "$CREATE_FILE 2>&1"
 rm -f history.txt etcfiles.txt home.txt dir.txt rpc.txt homeconf.txt temp.txt set.txt
 
@@ -38,7 +38,6 @@ else
 	fi
 fi
 echo " " >> $CREATE_FILE 2>&1
-
 
 echo "========03.Passwd_file_Permission_Check_start========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
@@ -226,6 +225,7 @@ echo " " >> $CREATE_FILE 2>&1
 echo "========10.Setuid,Setgid_check_start========" >> $CREATE_FILE 2>&1
 echo >> $CREATE_FILE 2>&1
 FILES="/sbin/dump /usr/bin/lpd-lpd /usr/bin/newgrp /sbin/restore /usr/bin/lpr /usr/sbin/lpc /sbin/unix_chkpwd /usr/sbin/lpc-lpd /usr/bin/at /usr/bin/lprm /usr/sbin/traceroute /usr/bin/lpd /usr/bin/lprm-lpd"
+echo " " > set.txc
 echo " " >> $CREATE_FILE 2>&1
 
 for check_file in $FILES
