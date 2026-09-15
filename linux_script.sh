@@ -108,21 +108,21 @@ echo " " >> $CREATE_FILE 2>&1
 
 if [ -f "/etc/login.defs" ];
 then
-	if [ `grep "PASS_MIN_LEN" /etc/login.defs | awk '{print $2}' | wc -l` -ge 90 ];
+	if [ `grep "PASS_MIN_LEN" /etc/login.defs | grep -v "#" | awk '{print $2}'` -ge 8 ];
 	then
        	 	 echo "PASS_MIN_LEN:[Good]" >> $CREATE_FILE 2>&1	
 	else
          	 echo "PASS_MIN_LEN:[Bad: Password Length Less Then 8 ]" >> $CREATE_FILE 2>&1
     fi
 
-	if [ `grep "PASS_MAX_DAYS" /etc/login.defs | awk '{print $2}' | wc -l` -le 90 ]; 
+	if [ `grep "PASS_MAX_DAYS" /etc/login.defs | grep -v "#" | awk '{print $2}'` -le 90 ]; 
 	then
         echo "PASS_MAX_DAYS:[Good]" >> $CREATE_FILE 2>&1
     else
 		echo "PASS_MAX_DAYS:[Bad: Days Not Enough ]" >> $CREATE_FILE 2>&1
     fi
 
-    if [ `grep "PASS_MIN_DAYS" /etc/login.defs | awk '{print $2}' | wc -l` -ge 1 ]; 
+    if [ `grep "PASS_MIN_DAYS" /etc/login.defs | grep -v "#"  | awk '{print $2}'` -ge 1 ]; 
 	then
          echo "PASS_MIN_DAYS:[Good]" >> $CREATE_FILE 2>&1
     else
