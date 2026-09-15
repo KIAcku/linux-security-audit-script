@@ -63,7 +63,7 @@ echo "======== 04.GROUP_File_Permission_Check_Start ========" >> $CREATE_FILE 2>
 ls -alL /etc/group >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ -f "/etc/group" ]; 
 then
     if [ `ls -alL /etc/group | awk '{print $1}' | grep "rw-r--r--" | wc -l` -eq 0 ];
@@ -103,7 +103,7 @@ else
 	echo "/etc/login.defs file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "------------[Result]------------" >> $CREATE_FILE 2>&1
+echo "====----------[Result]------------" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
 if [ -f "/etc/login.defs" ];
@@ -144,7 +144,7 @@ else
     echo "/etc/passwd Not Found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 
 if [ `cat /etc/passwd | grep -E "daemon|bin|sys|adm|listen|nobody|nobody4|noaccess|diag|operator|games|gopher" | grep -v "admin" | grep -v "false|nologin" | wc -l` -eq 0 ]
 then
@@ -166,7 +166,7 @@ else
     echo "/etc/pam.d/su file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ `cat /etc/pam.d/su | grep -v 'trust' | grep 'pam_wheel.so' | grep 'use_uid' | grep -v '#' | wc -l` -eq 0　];　
 then
     echo "su check result : Good" >> $CREATE_FILE 2>&1
@@ -187,7 +187,7 @@ else
 fi
 echo " " >> $CREATE_FILE 2>&1
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 
 if [ `ls -alL /etc/shadow | awk '{print $1}' | grep   "----------" | wc -l` -eq 1 ]; 
 then
@@ -210,7 +210,7 @@ else
     echo "/etc/login.defs file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 
 if [ `cat /etc/login.defs | grep -i "umask" | grep -v "#" | awk -F "0" '$2 >="22"' | wc -l` -gt 0 ];
 then
@@ -242,7 +242,7 @@ do
         fi
 done
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 
 if [ `cat set.txt | awk '{print $1}' | grep -i 's' | wc -l` -gt 0 ];
 then
@@ -256,7 +256,7 @@ rm -rf ./set.txt
 
 
 echo "========11.Xinetd.conf_check_start========" >> $CREATE_FILE 2>&1
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
 if [ -f /etc/xinetd.conf ];
@@ -299,7 +299,7 @@ do
     done
 done
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ `cat history.txt | grep "Bad" | wc -l` -eq 0 ];
 then
     echo "history check result : Good " >> $CREATE_FILE
@@ -323,7 +323,7 @@ else
     echo "/etc/profile not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/profile | awk '{print $1}' | grep '...-.--.--' | wc -l` -eq 1 ]; 
 then
     echo "profile permission check result : Good" >> $CREATE_FILE 2>&1
@@ -345,7 +345,7 @@ else
         echo "/etc/hosts file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/hosts | awk '{print $1}' | grep '-rw-r--r--' | wc -l` -eq 0 ];
 then
         echo "permssion  check result : Good" >>$CREATE_FILE 2>&1
@@ -365,7 +365,7 @@ else
         echo "/etc/issue file not found" >> $CREATE_FILE 2>&1
 fi
 
-echo "=========[Result]==========" >> $CREATE_FILE 2>&1
+echo "========[Result]========" >> $CREATE_FILE 2>&1
 if [ `ls -alL /etc/issue | awk '{print $1}' | grep '.....--.--' | wc -l` -eq 1 ]; 
 then
         echo "issue permission check result : Good" >> $CREATE_FILE 2>&1
@@ -410,7 +410,7 @@ echo " " >> home.txt 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
 
-echo "========17_Home_directory_configuration_check=========" >> $CREATE_FILE 2>&1
+echo "========17_Home_directory_configuration_check========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 HOMEDIRS=`cat /etc/passwd | awk -F ":" 'length($6) > 0 {print $6}' | sort -u | grep -v '/bin/false' | grep -v 'nologin' | grep -v "#"`
 FILES=".profile .cshrc .kshrc .login .bash_profile .bashrc .bash_login .exrc .netrc .history .sh_history .bash_history .dtprofile"
@@ -635,7 +635,7 @@ fi
 rm -rf rpc.txt
 
 echo " " >> $CREATE_FILE 2>&1
-echo "===================[Automatic_脆弱性チェック_script.END]========================" >> $CREATE_FILE 2>&1
+echo "========[Automatic_脆弱性チェック_script.END]========" >> $CREATE_FILE 2>&1
 
 cat ./$CREATE_FILE
 
