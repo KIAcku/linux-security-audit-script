@@ -30,11 +30,11 @@ then
 else 
   	if [ `awk -F: '$3==0' /etc/passwd | wc -l` -eq 1 ]; 
 	then
-        	echo "==Good==" >> $CREATE_FILE 2>&1
+        	echo "/etc/passwd UID setting :Good" >> $CREATE_FILE 2>&1
 	else
 		awk -F: '$3==0 {print $1 " --> UID="$3 }' /etc/passwd >> $CREATE_FILE 2>&1
 			
-			echo "==Bad==" >> $CREATE_FILE 2>&1
+			echo "/etc/passwd UID setting :Bad" >> $CREATE_FILE 2>&1
 	fi
 fi
 echo " " >> $CREATE_FILE 2>&1
