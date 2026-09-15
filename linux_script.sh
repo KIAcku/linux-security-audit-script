@@ -629,7 +629,7 @@ fi
 echo "========[Result]========" >> $CREATE_FILE 2>&1
 echo " " >> $CREATE_FILE 2>&1
 
-if [ `cat rpc.txt | grep "Bad" | wc -l` -eq 0 ];
+if [ ! -f rpc.txt ] || [ `cat rpc.txt | grep "Bad" | wc -l` -eq 0 ];
 then
         echo "RPC Service check result : Good" >> $CREATE_FILE 2>&1
 else
